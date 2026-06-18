@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Effect</title>
+</head>
+<body>
+    <h1 id="demo"></h1>
+    <script>
+        let words = ["Subhan Hanif ", "Follow my ", "YouTube channel "];
+        let i = 0;        // Current character index
+        let j = 0;        // Current word index
+        let isDeleting = false;
+
+        function typeEffect() {
+            const demo = document.getElementById("demo");
+            let currentWord = words[j];
+
+            if (!isDeleting) {
+                // Typing mode
+                demo.innerHTML = currentWord.slice(0, i);
+                i++;
+
+                if (i > currentWord.length) {
+                    isDeleting = true;
+                    setTimeout(typeEffect, 1500); // Pause after typing complete
+                    return;
+                }
+                setTimeout(typeEffect, 100); // Typing speed
+
+            } else {
+                // Deleting mode
+                demo.innerHTML = currentWord.slice(0, i);
+                i--;
+
+                if (i < 0) {
+                    isDeleting = false;
+                    j++;
+                    if (j >= words.length) {
+                        j = 0; // Reset to first word
+                    }
+                    i = 0;
+                    setTimeout(typeEffect, 500); // Pause before next word
+                    return;
+                }
+                setTimeout(typeEffect, 50); // Deleting speed
+            }
+        }
+
+        typeEffect(); // Start the effect
+    </script>
+</body>
+</html>
